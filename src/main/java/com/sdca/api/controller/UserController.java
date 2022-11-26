@@ -29,5 +29,5 @@ public class UserController {
     public @ResponseBody Optional<User> getUserById(@PathVariable Long userId) {
         return userRepository.findById(userId);
     }
-    
+
 }
