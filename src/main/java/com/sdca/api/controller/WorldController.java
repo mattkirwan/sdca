@@ -17,9 +17,9 @@ public class WorldController {
     private final WorldRepository worldRepository;
     private final UserRepository userRepository;
 
-    public WorldController(WorldRepository worldRepository, UserRepository userRepository) {
-        this.worldRepository = worldRepository;
+    public WorldController(UserRepository userRepository, WorldRepository worldRepository) {
         this.userRepository = userRepository;
+        this.worldRepository = worldRepository;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
