@@ -41,11 +41,16 @@
 
 Today's Goals
 ---
- - Get Item?
- - Update Items endpoint  - isDepleted
+
+ - ~~Update Items endpoint  - isDepleted~~
+ - ~~Sketch high-level UI flow for endpoint clarity~~
+ - Match / check all endpoints exist to initial UI flow
+ - Autocreate all Islands on World creation
+ - Autocreate all guaranteed and finite items (wood, rocks)
+ - Lazyload (or don't even load?) subresources
+ - Optional requestparams in SpringBoot - eg: seed on World Creation
+ - HATEOS subresources - 
  - How to handle SpringBoot responses on failure
- - Sketch UI
- - Map Endpoints
  - Complete any missing endpoints
  - Build initial UI
  - SpringBoot Auth
