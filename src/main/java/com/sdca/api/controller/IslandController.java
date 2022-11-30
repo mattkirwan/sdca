@@ -1,7 +1,9 @@
 package com.sdca.api.controller;
 
 import com.sdca.api.model.Island;
+import com.sdca.api.model.User;
 import com.sdca.api.model.World;
+import com.sdca.api.model.item.Item;
 import com.sdca.api.repository.IslandRepository;
 import com.sdca.api.repository.UserRepository;
 import com.sdca.api.repository.WorldRepository;
@@ -27,26 +29,34 @@ public class IslandController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public @ResponseBody Optional<Island> createIsland(@PathVariable Long userId, @PathVariable Long worldId, @RequestParam Byte x, @RequestParam Byte y) {
+    public @ResponseBody Island createIsland(@PathVariable Long userId, @PathVariable Long worldId, @RequestParam Byte x, @RequestParam Byte y) {
 
-        return this.userRepository.findById(userId).map(user -> {
-            List<World> worldBelongsToUser = user.getWorlds().stream()
-                    .filter(w -> w.getId().equals(worldId))
-                    .toList();
+        User user = this.userRepository.findById(userId).orElse(null);
 
-            if (worldBelongsToUser.stream().count() != 1) {
-                // TODO exit. Not sure how to do this? exception?
-            }
+        if (user == null) {
+            // TODO user might be null
+        }
 
-            Island island = new Island(x, y);
-            // TODO Also feels sketchy assuming there's 1 item (yes it's from the DB but still...)
-            // Yep as predicted: Request processing failed: java.lang.IndexOutOfBoundsException: Index 0 out of bounds for length 0
-            // when trying to create an island on a world that doesn't exist
-            worldBelongsToUser.get(0).getIslands().add(island);
-            return islandRepository.save(island);
+        World world = user.getWorlds().stream()
+                .filter(w -> w.getId().equals(worldId))
+                .findFirst()
+                .orElse(null);
 
-            // TODO this whole thing can be better no doubt but I wanna keep moving on
-        });
+        if (world == null) {
+            // TODO world might be null
+        }
+
+        Island island = new Island(x, y);
+        world.getIslands().add(island);
+
+        // Add guaranteed finite resources
+        Item wood = new Item("wood");
+        Item rocks = new Item("rocks");
+        island.getItems().add(wood);
+        island.getItems().add(rocks);
+
+        return islandRepository.save(island);
+
     }
 
     @ResponseStatus(HttpStatus.OK)
