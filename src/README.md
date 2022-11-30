@@ -46,9 +46,9 @@ Today's Goals
  - ~~Sketch high-level UI flow for endpoint clarity~~
  - ~~Match / check all endpoints exist to initial UI flow~~
  - ~~Complete any missing endpoints~~
- - Autocreate all guaranteed and finite items (wood, rocks)
+ - ~~Autocreate all guaranteed and finite items (wood, rocks)~~
  - Lazyload (or don't even load?) subresources
- - Optional requestparams in SpringBoot - eg: seed on World Creation
+ - ~~Optional requestparams in SpringBoot - eg: seed on World Creation~~
  - HATEOS subresources - 
  - DELETE resources...?
  - How to handle SpringBoot responses on failure

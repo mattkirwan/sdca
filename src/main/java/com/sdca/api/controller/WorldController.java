@@ -26,9 +26,13 @@ public class WorldController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/worlds")
-    public @ResponseBody Optional<World> create(@PathVariable Long userId, @RequestParam Integer saveSlot) {
+    public @ResponseBody Optional<World> create(
+            @PathVariable Long userId,
+            @RequestParam Integer saveSlot,
+            @RequestParam(required = false) Long seed
+    ) {
         return this.userRepository.findById(userId).map(user -> {
-            World world = new World(saveSlot);
+            World world = new World(saveSlot, seed);
             user.getWorlds().add(world);
             return worldRepository.save(world);
         });

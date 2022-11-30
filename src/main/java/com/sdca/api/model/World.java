@@ -15,8 +15,9 @@ public class World {
     @Getter
     private @GeneratedValue @Id Long id;
 
-    public World(Integer saveSlot) {
+    public World(Integer saveSlot, Long seed) {
         this.saveSlot = saveSlot;
+        this.seed = seed;
     }
 
     @Getter
