@@ -38,3 +38,16 @@
 
 #### List ENTITIES
 `curl http://localhost:8080/ENTITY_PLURAL -H "Content-Type: application/json"`
+
+Today's Goals
+---
+ - Get Item?
+ - Update Items endpoint  - isDepleted
+ - How to handle SpringBoot responses on failure
+ - Sketch UI
+ - Map Endpoints
+ - Complete any missing endpoints
+ - Build initial UI
+ - SpringBoot Auth
+ - Validation
+ - Unit Testing
