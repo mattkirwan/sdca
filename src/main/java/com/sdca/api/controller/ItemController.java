@@ -60,6 +60,26 @@ public class ItemController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping
+    public Iterable<Item> getItemsByIslandId(
+            @PathVariable Long userId,
+            @PathVariable Long worldId,
+            @PathVariable Long islandId
+    ) {
+
+        // TODO validate item belongs to user, world and island
+
+        Island island = islandRepository.findById(islandId).orElse(null);
+
+        if (island == null) {
+            // TODO island might be null
+        }
+
+        return island.getItems();
+
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{itemId}/depleted")
     public Item setItemDepletedStatus(
             @PathVariable Long userId,
