@@ -55,7 +55,7 @@ public class ItemController {
 
         Item item = new Item(name);
         island.getItems().add(item);
-        return (Item) itemRepository.save(item);
+        return this.itemRepository.save(item);
 
     }
 

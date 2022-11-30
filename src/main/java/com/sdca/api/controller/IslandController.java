@@ -7,11 +7,11 @@ import com.sdca.api.model.item.Item;
 import com.sdca.api.repository.IslandRepository;
 import com.sdca.api.repository.UserRepository;
 import com.sdca.api.repository.WorldRepository;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/users/{userId}/worlds/{worldId}/islands")
@@ -72,11 +72,15 @@ public class IslandController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{islandId}")
     @ResponseBody
-    public Optional<Island> getIslandById(@PathVariable Long userId, @PathVariable Long worldId, @PathVariable Long islandId) {
+    public EntityModel<Island> getIslandById(@PathVariable Long userId, @PathVariable Long worldId, @PathVariable Long islandId) {
+
+        Island island = this.islandRepository.findById(islandId).orElse(null);
 
         // TODO look into validation of this Island actually belonging to the World and the User
 
-        return this.islandRepository.findById(islandId);
+        return EntityModel.of(island,
+                linkTo(methodOn(IslandController.class).getIslandById(userId, worldId, islandId)).withSelfRel(),
+                linkTo(methodOn(ItemController.class).getItemsByIslandId(userId, worldId, islandId)).withRel("items"));
     }
 
 }
