@@ -32,9 +32,20 @@ public class WorldController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{userId}/{worlds}")
+    @GetMapping("/{userId}/worlds")
     public @ResponseBody Iterable<World> getAllWorldsByUserId(@PathVariable Long userId) {
         User user = userRepository.findById(userId).get();
         return user.getWorlds();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{userId}/worlds/{worldId}")
+    @ResponseBody
+    public Optional<World> getWorldById(@PathVariable Long userId, @PathVariable Long worldId) {
+
+        // TODO validate world belongs to user
+
+        return worldRepository.findById(worldId);
+
     }
 }
