@@ -2,7 +2,6 @@ package com.sdca.api.controller;
 
 import com.sdca.api.model.Island;
 import com.sdca.api.model.User;
-import com.sdca.api.model.World;
 import com.sdca.api.model.item.Item;
 import com.sdca.api.repository.IslandRepository;
 import com.sdca.api.repository.ItemRepository;
@@ -10,10 +9,6 @@ import com.sdca.api.repository.UserRepository;
 import com.sdca.api.repository.WorldRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/users/{userId}/worlds/{worldId}/islands/{islandId}/items")
