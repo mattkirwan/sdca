@@ -33,8 +33,9 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.jar {
+tasks.named<Jar>("jar") {
     manifest {
         attributes["Main-Class"] = "com.sdca.api.SdcaApplication"
     }
+    enabled = false
 }
