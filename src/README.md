@@ -59,3 +59,5 @@ Today's Goals
  - Validation
  - Unit Testing
  - Service Layer
+ - Item exists in island
+ - Island exists in world

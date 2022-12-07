@@ -1,5 +1,6 @@
 package com.sdca.api.controller;
 
+import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.Island;
 import com.sdca.api.model.User;
 import com.sdca.api.model.item.Item;
@@ -43,7 +44,7 @@ public class ItemController {
 
         // TODO validate item belongs to user, world and island
 
-        User user = this.userRepository.findById(userId).orElse(null);
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
         if (user == null) {
             // TODO Exit.

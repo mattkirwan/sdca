@@ -1,7 +1,9 @@
 package com.sdca.api.controller;
 
+import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.User;
 import com.sdca.api.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -48,9 +50,10 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}")
     public EntityModel<User> getUserById(@PathVariable Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
 
         // TODO validate user / auth
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
         return EntityModel.of(user,
                 linkTo(methodOn(UserController.class).getUserById(userId)).withSelfRel(),

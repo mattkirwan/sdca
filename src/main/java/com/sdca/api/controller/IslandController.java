@@ -1,5 +1,6 @@
 package com.sdca.api.controller;
 
+import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.Island;
 import com.sdca.api.model.User;
 import com.sdca.api.model.World;
@@ -35,7 +36,7 @@ public class IslandController {
     @PostMapping
     public EntityModel<Island> createIsland(@PathVariable Long userId, @PathVariable Long worldId, @RequestParam Byte x, @RequestParam Byte y) {
 
-        User user = this.userRepository.findById(userId).orElse(null);
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
         if (user == null) {
             // TODO user might be null

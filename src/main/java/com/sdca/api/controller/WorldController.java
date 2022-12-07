@@ -1,5 +1,6 @@
 package com.sdca.api.controller;
 
+import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.User;
 import com.sdca.api.model.World;
 import com.sdca.api.repository.UserRepository;
@@ -34,7 +35,9 @@ public class WorldController {
             @RequestParam(required = false) Long seed
     ) {
 
-        User user = this.userRepository.findById(userId).orElse(null);
+        // TODO validate user
+
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
         // TODO Check user is good
 
@@ -59,9 +62,10 @@ public class WorldController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/worlds")
     public CollectionModel<EntityModel<World>> getAllWorldsByUserId(@PathVariable Long userId) {
-        User user = userRepository.findById(userId).orElse(null);
 
-        // TODO validate user
+        // TODO validate/auth user
+
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
         List<EntityModel<World>> worlds = user.getWorlds().stream().map(w -> EntityModel.of(w,
                 linkTo(methodOn(WorldController.class).getWorldById(userId, w.getId())).withRel("world")))
