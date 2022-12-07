@@ -16,7 +16,7 @@
 
 `CREATE DATABASE sdca;`
 
-`CREATE USER 'shipstorm'@'%' IDENTIFIED BY 'password';`
+`CREATE USER 'sdca'@'%' IDENTIFIED BY 'password';`
 
 `GRANT ALL PRIVILEGES ON sdca.* TO 'sdca'@'%' WITH GRANT OPTION;`
 
@@ -49,7 +49,8 @@ Today's Goals
  - ~~Autocreate all guaranteed and finite items (wood, rocks)~~
  - Lazyload (or don't even load?) subresources
  - ~~Optional requestparams in SpringBoot - eg: seed on World Creation~~
- - HATEOS subresources - 
+ - ~~POSTMAN~~
+ - ~~HATEOS subresources~~
  - DELETE resources...?
  - How to handle SpringBoot responses on failure
  - roles / policies - auth for routes?

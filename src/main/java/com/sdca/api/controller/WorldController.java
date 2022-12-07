@@ -12,7 +12,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,16 +28,32 @@ public class WorldController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/worlds")
-    public @ResponseBody Optional<World> create(
+    public @ResponseBody EntityModel<World> create(
             @PathVariable Long userId,
             @RequestParam Integer saveSlot,
             @RequestParam(required = false) Long seed
     ) {
-        return this.userRepository.findById(userId).map(user -> {
-            World world = new World(saveSlot, seed);
-            user.getWorlds().add(world);
-            return worldRepository.save(world);
-        });
+
+        User user = this.userRepository.findById(userId).orElse(null);
+
+        // TODO Check user is good
+
+        List<World> worlds = user.getWorlds();
+
+        if (worlds == null) {
+
+        }
+
+        World world = new World(saveSlot, seed);
+        user.getWorlds().add(world);
+
+        worldRepository.save(world);
+
+        return EntityModel.of(
+                world, linkTo(
+                        methodOn(WorldController.class)
+                                .getWorldById(userId, world.getId()))
+                        .withSelfRel());
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -50,11 +65,12 @@ public class WorldController {
         // TODO validate user
 
         List<EntityModel<World>> worlds = user.getWorlds().stream().map(w -> EntityModel.of(w,
-                linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withSelfRel()))
+                linkTo(methodOn(WorldController.class).getWorldById(userId, w.getId())).withRel("world")))
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(worlds, linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withRel("worlds"));
+        return CollectionModel.of(worlds, linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withSelfRel());
     }
+
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/worlds/{worldId}")

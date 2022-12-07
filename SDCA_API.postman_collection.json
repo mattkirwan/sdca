@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "ba9e02eb-a16b-41d3-a45a-688e72dbb5aa",
+		"name": "SDCA API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24810077"
+	},
+	"item": [
+		{
+			"name": "users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds?saveSlot=1&seed=123456789",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds"
+					],
+					"query": [
+						{
+							"key": "saveSlot",
+							"value": "1"
+						},
+						{
+							"key": "seed",
+							"value": "123456789"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands?x=1&y=3",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands"
+					],
+					"query": [
+						{
+							"key": "x",
+							"value": "1"
+						},
+						{
+							"key": "y",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/1/worlds/152/islands/104",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"1",
+						"worlds",
+						"152",
+						"islands",
+						"104"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands/id/items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands",
+						"202",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands/id/items/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items/354",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands",
+						"202",
+						"items",
+						"354"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands/id/items",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items?name=ShipWreck",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands",
+						"202",
+						"items"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "ShipWreck"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands/id/items/id/depleted",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items/452/depleted?status=true",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands",
+						"202",
+						"items",
+						"452",
+						"depleted"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "8080",
+			"type": "string"
+		}
+	]
+}

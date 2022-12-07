@@ -7,8 +7,15 @@ import com.sdca.api.repository.IslandRepository;
 import com.sdca.api.repository.ItemRepository;
 import com.sdca.api.repository.UserRepository;
 import com.sdca.api.repository.WorldRepository;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/users/{userId}/worlds/{worldId}/islands/{islandId}/items")
@@ -28,7 +35,7 @@ public class ItemController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public @ResponseBody Item createItem(
+    public @ResponseBody EntityModel<Item> createItem(
             @PathVariable Long userId,
             @PathVariable Long worldId,
             @PathVariable Long islandId,
@@ -55,13 +62,32 @@ public class ItemController {
 
         Item item = new Item(name);
         island.getItems().add(item);
-        return this.itemRepository.save(item);
+        itemRepository.save(item);
+
+        return EntityModel.of(item, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, item.getId())).withSelfRel());
 
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{itemId}")
+    public EntityModel<Item> getItemById(
+            @PathVariable Long userId,
+            @PathVariable Long worldId,
+            @PathVariable Long islandId,
+            @PathVariable Long itemId
+    ) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+
+        if (item == null) {
+            // TODO if item null
+        }
+
+        return EntityModel.of(item, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, itemId)).withSelfRel());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public Iterable<Item> getItemsByIslandId(
+    public CollectionModel<EntityModel<Item>> getItemsByIslandId(
             @PathVariable Long userId,
             @PathVariable Long worldId,
             @PathVariable Long islandId
@@ -75,13 +101,17 @@ public class ItemController {
             // TODO island might be null
         }
 
-        return island.getItems();
+        List<EntityModel<Item>> items = island.getItems().stream()
+                .map(i -> EntityModel.of(i, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, i.getId())).withSelfRel()))
+                .toList();
+
+        return CollectionModel.of(items, linkTo(methodOn(ItemController.class).getItemsByIslandId(userId, worldId, islandId)).withSelfRel());
 
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{itemId}/depleted")
-    public Item setItemDepletedStatus(
+    public EntityModel<Item> setItemDepletedStatus(
             @PathVariable Long userId,
             @PathVariable Long worldId,
             @PathVariable Long islandId,
@@ -99,7 +129,9 @@ public class ItemController {
 
         item.setIsDepleted(status);
 
-        return itemRepository.save(item);
+        itemRepository.save(item);
+
+        return EntityModel.of(item, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, itemId)).withSelfRel());
 
     }
 }
