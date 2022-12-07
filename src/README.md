@@ -39,7 +39,7 @@
 #### List ENTITIES
 `curl http://localhost:8080/ENTITY_PLURAL -H "Content-Type: application/json"`
 
-Today's Goals
+Goals
 ---
 
  - ~~Update Items endpoint  - isDepleted~~
@@ -51,7 +51,8 @@ Today's Goals
  - ~~Optional requestparams in SpringBoot - eg: seed on World Creation~~
  - ~~POSTMAN~~
  - ~~HATEOS subresources~~
- - DELETE resources...?
+ - DELETE resources
+ - ~~DELETE Items~~
  - ~~How to handle SpringBoot responses on failure / Exceptions~~
  - roles / policies - auth for routes?
  - Build initial UI

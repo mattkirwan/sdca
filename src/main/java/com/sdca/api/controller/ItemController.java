@@ -126,4 +126,25 @@ public class ItemController {
         );
 
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{itemId}")
+    public void deleteItem(
+            @PathVariable Long userId,
+            @PathVariable Long worldId,
+            @PathVariable Long islandId,
+            @PathVariable Long itemId
+    ) {
+
+        // TODO validate item belongs to user, world and island
+
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException(itemId));
+
+        Island island = islandRepository.findById(islandId).orElseThrow(() -> new IslandNotFoundException(islandId));
+
+        island.getItems().remove(item);
+        itemRepository.delete(item);
+
+    }
+
 }
