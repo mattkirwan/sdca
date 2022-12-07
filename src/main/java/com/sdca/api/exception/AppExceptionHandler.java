@@ -11,8 +11,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException e, WebRequest req) {
+    @ExceptionHandler({
+            UserNotFoundException.class,
+            WorldNotFoundException.class,
+            IslandNotFoundException.class,
+            ItemNotFoundException.class,
+    })
+    public ResponseEntity<Object> handleUserNotFoundException(RuntimeException e, WebRequest req) {
         return super.handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, req);
     }
 

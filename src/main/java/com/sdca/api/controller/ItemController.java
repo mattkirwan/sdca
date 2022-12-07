@@ -1,5 +1,6 @@
 package com.sdca.api.controller;
 
+import com.sdca.api.exception.ItemNotFoundException;
 import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.Island;
 import com.sdca.api.model.User;
@@ -77,7 +78,7 @@ public class ItemController {
             @PathVariable Long islandId,
             @PathVariable Long itemId
     ) {
-        Item item = itemRepository.findById(itemId).orElse(null);
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException(itemId));
 
         if (item == null) {
             // TODO if item null
@@ -122,7 +123,7 @@ public class ItemController {
 
         // TODO validate item belongs to user, world and island
 
-        Item item = itemRepository.findById(itemId).orElse(null);
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException(itemId));
 
         if (item == null) {
             // TODO null item

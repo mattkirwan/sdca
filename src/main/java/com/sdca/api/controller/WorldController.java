@@ -1,6 +1,7 @@
 package com.sdca.api.controller;
 
 import com.sdca.api.exception.UserNotFoundException;
+import com.sdca.api.exception.WorldNotFoundException;
 import com.sdca.api.model.User;
 import com.sdca.api.model.World;
 import com.sdca.api.repository.UserRepository;
@@ -35,11 +36,10 @@ public class WorldController {
             @RequestParam(required = false) Long seed
     ) {
 
-        // TODO validate user
+        // TODO validate/auth user
 
-        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-
-        // TODO Check user is good
+        User user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
         List<World> worlds = user.getWorlds();
 
@@ -65,7 +65,8 @@ public class WorldController {
 
         // TODO validate/auth user
 
-        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        User user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
         List<EntityModel<World>> worlds = user.getWorlds().stream().map(w -> EntityModel.of(w,
                 linkTo(methodOn(WorldController.class).getWorldById(userId, w.getId())).withRel("world")))
@@ -79,7 +80,8 @@ public class WorldController {
     @GetMapping("/{userId}/worlds/{worldId}")
     public EntityModel<World> getWorldById(@PathVariable Long userId, @PathVariable Long worldId) {
 
-        World world = worldRepository.findById(worldId).orElse(null);
+        World world = worldRepository.findById(worldId)
+                .orElseThrow(() -> new WorldNotFoundException(worldId));
 
         // TODO validate world belongs to user
 

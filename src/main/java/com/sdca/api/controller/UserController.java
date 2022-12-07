@@ -53,7 +53,8 @@ public class UserController {
 
         // TODO validate user / auth
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
         return EntityModel.of(user,
                 linkTo(methodOn(UserController.class).getUserById(userId)).withSelfRel(),
