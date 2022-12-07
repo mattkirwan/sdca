@@ -41,22 +41,17 @@ public class WorldController {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
-        List<World> worlds = user.getWorlds();
-
-        if (worlds == null) {
-
-        }
-
         World world = new World(saveSlot, seed);
         user.getWorlds().add(world);
-
         worldRepository.save(world);
 
         return EntityModel.of(
                 world, linkTo(
                         methodOn(WorldController.class)
                                 .getWorldById(userId, world.getId()))
-                        .withSelfRel());
+                        .withSelfRel()
+        );
+
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -91,6 +86,8 @@ public class WorldController {
 
         return EntityModel.of(world,
                 linkTo(methodOn(WorldController.class).getWorldById(userId, worldId)).withSelfRel(),
-                linkTo(methodOn(IslandController.class).getIslandsByWorldId(userId, worldId)).withRel("islands"));
+                linkTo(methodOn(IslandController.class).getIslandsByWorldId(userId, worldId)).withRel("islands")
+        );
+
     }
 }

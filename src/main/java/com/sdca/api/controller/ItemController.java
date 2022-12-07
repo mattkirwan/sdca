@@ -1,5 +1,6 @@
 package com.sdca.api.controller;
 
+import com.sdca.api.exception.IslandNotFoundException;
 import com.sdca.api.exception.ItemNotFoundException;
 import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.Island;
@@ -52,11 +53,7 @@ public class ItemController {
                 .flatMap(w -> w.getIslands().stream()
                         .filter(i -> i.getId().equals(islandId)))
                 .findFirst()
-                .orElse(null);
-
-        if (island == null) {
-            // TODO Exit
-        }
+                .orElseThrow(() -> new IslandNotFoundException(islandId));
 
         Item item = new Item(name);
         island.getItems().add(item);
@@ -78,11 +75,10 @@ public class ItemController {
     ) {
         Item item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException(itemId));
 
-        if (item == null) {
-            // TODO if item null
-        }
+        return EntityModel.of(item,
+                linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, itemId)).withSelfRel()
+        );
 
-        return EntityModel.of(item, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, itemId)).withSelfRel());
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -95,17 +91,16 @@ public class ItemController {
 
         // TODO validate item belongs to user, world and island
 
-        Island island = islandRepository.findById(islandId).orElse(null);
-
-        if (island == null) {
-            // TODO island might be null
-        }
+        Island island = islandRepository.findById(islandId).orElseThrow(() -> new IslandNotFoundException(islandId));
 
         List<EntityModel<Item>> items = island.getItems().stream()
-                .map(i -> EntityModel.of(i, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, i.getId())).withSelfRel()))
+                .map(i -> EntityModel.of(i,
+                        linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, i.getId())).withSelfRel()))
                 .toList();
 
-        return CollectionModel.of(items, linkTo(methodOn(ItemController.class).getItemsByIslandId(userId, worldId, islandId)).withSelfRel());
+        return CollectionModel.of(items,
+                linkTo(methodOn(ItemController.class).getItemsByIslandId(userId, worldId, islandId)).withSelfRel()
+        );
 
     }
 
@@ -123,15 +118,12 @@ public class ItemController {
 
         Item item = itemRepository.findById(itemId).orElseThrow(() -> new ItemNotFoundException(itemId));
 
-        if (item == null) {
-            // TODO null item
-        }
-
         item.setIsDepleted(status);
-
         itemRepository.save(item);
 
-        return EntityModel.of(item, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, itemId)).withSelfRel());
+        return EntityModel.of(item,
+                linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, itemId)).withSelfRel()
+        );
 
     }
 }

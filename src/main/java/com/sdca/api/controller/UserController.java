@@ -3,7 +3,6 @@ package com.sdca.api.controller;
 import com.sdca.api.exception.UserNotFoundException;
 import com.sdca.api.model.User;
 import com.sdca.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,9 @@ public class UserController {
 
         userRepository.save(user);
 
-        return EntityModel.of(user, linkTo(methodOn(UserController.class).getUserById(user.getId())).withSelfRel());
+        return EntityModel.of(user,
+                linkTo(methodOn(UserController.class).getUserById(user.getId())).withSelfRel()
+        );
 
     }
 
@@ -44,7 +45,10 @@ public class UserController {
                                     .withRel("user")))
                 .toList();
 
-        return CollectionModel.of(users, linkTo(methodOn(UserController.class).findAll()).withSelfRel());
+        return CollectionModel.of(users,
+                linkTo(methodOn(UserController.class).findAll()).withSelfRel()
+        );
+
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -58,7 +62,9 @@ public class UserController {
 
         return EntityModel.of(user,
                 linkTo(methodOn(UserController.class).getUserById(userId)).withSelfRel(),
-                linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withRel("worlds"));
+                linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withRel("worlds")
+        );
+
     }
 
 }

@@ -52,7 +52,7 @@ Today's Goals
  - ~~POSTMAN~~
  - ~~HATEOS subresources~~
  - DELETE resources...?
- - How to handle SpringBoot responses on failure
+ - ~~How to handle SpringBoot responses on failure / Exceptions~~
  - roles / policies - auth for routes?
  - Build initial UI
  - SpringBoot Auth
