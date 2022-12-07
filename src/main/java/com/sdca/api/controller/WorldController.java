@@ -68,11 +68,15 @@ public class WorldController {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
-        List<EntityModel<World>> worlds = user.getWorlds().stream().map(w -> EntityModel.of(w,
-                linkTo(methodOn(WorldController.class).getWorldById(userId, w.getId())).withRel("world")))
+        List<EntityModel<World>> worlds = user.getWorlds().stream()
+                .map(w -> EntityModel.of(w,
+                    linkTo(methodOn(WorldController.class).getWorldById(userId, w.getId())).withRel("world")))
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(worlds, linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withSelfRel());
+        return CollectionModel.of(worlds,
+                linkTo(methodOn(WorldController.class).getAllWorldsByUserId(userId)).withSelfRel()
+        );
+
     }
 
 

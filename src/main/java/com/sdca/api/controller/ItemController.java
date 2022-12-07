@@ -28,7 +28,7 @@ public class ItemController {
     private final IslandRepository islandRepository;
     private final ItemRepository itemRepository;
 
-    public ItemController(UserRepository userRepository, WorldRepository worldRepository, IslandRepository islandRepository,ItemRepository itemRepository) {
+    public ItemController(UserRepository userRepository, WorldRepository worldRepository, IslandRepository islandRepository, ItemRepository itemRepository) {
         this.userRepository = userRepository;
         this.worldRepository = worldRepository;
         this.islandRepository = islandRepository;
@@ -47,10 +47,6 @@ public class ItemController {
 
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
-        if (user == null) {
-            // TODO Exit.
-        }
-
         Island island = user.getWorlds().stream()
                 .filter(w -> w.getId().equals(worldId))
                 .flatMap(w -> w.getIslands().stream()
@@ -66,7 +62,9 @@ public class ItemController {
         island.getItems().add(item);
         itemRepository.save(item);
 
-        return EntityModel.of(item, linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, item.getId())).withSelfRel());
+        return EntityModel.of(item,
+                linkTo(methodOn(ItemController.class).getItemById(userId, worldId, islandId, item.getId())).withSelfRel()
+        );
 
     }
 

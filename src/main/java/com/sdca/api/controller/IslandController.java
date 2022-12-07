@@ -40,10 +40,6 @@ public class IslandController {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
-        if (user == null) {
-            // TODO user might be null
-        }
-
         World world = user.getWorlds().stream()
                 .filter(w -> w.getId().equals(worldId))
                 .findFirst()
@@ -64,7 +60,9 @@ public class IslandController {
 
         islandRepository.save(island);
 
-        return EntityModel.of(island, linkTo(methodOn(IslandController.class).getIslandById(userId, worldId, island.getId())).withSelfRel());
+        return EntityModel.of(island,
+                linkTo(methodOn(IslandController.class).getIslandById(userId, worldId, island.getId())).withSelfRel()
+        );
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -93,7 +91,9 @@ public class IslandController {
 
         return EntityModel.of(island,
                 linkTo(methodOn(IslandController.class).getIslandById(userId, worldId, islandId)).withSelfRel(),
-                linkTo(methodOn(ItemController.class).getItemsByIslandId(userId, worldId, islandId)).withRel("items"));
+                linkTo(methodOn(ItemController.class).getItemsByIslandId(userId, worldId, islandId)).withRel("items")
+        );
+
     }
 
 }
