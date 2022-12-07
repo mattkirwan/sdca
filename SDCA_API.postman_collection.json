@@ -48,14 +48,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/users/152",
+					"raw": "{{url}}:{{port}}/users/999",
 					"host": [
 						"{{url}}"
 					],
 					"port": "{{port}}",
 					"path": [
 						"users",
-						"152"
+						"999"
 					]
 				}
 			},
@@ -87,7 +87,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/users/152/worlds?saveSlot=1&seed=123456789",
+					"raw": "{{url}}:{{port}}/users/152/worlds?saveSlot=2&seed=98765432123456789",
 					"host": [
 						"{{url}}"
 					],
@@ -100,11 +100,11 @@
 					"query": [
 						{
 							"key": "saveSlot",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "seed",
-							"value": "123456789"
+							"value": "98765432123456789"
 						}
 					]
 				}
@@ -117,16 +117,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/users/152/worlds/304",
+					"raw": "{{url}}:{{port}}/users/1/worlds/999",
 					"host": [
 						"{{url}}"
 					],
 					"port": "{{port}}",
 					"path": [
 						"users",
-						"152",
+						"1",
 						"worlds",
-						"304"
+						"999"
 					]
 				}
 			},
@@ -160,7 +160,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands?x=1&y=3",
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands?x=4&y=4",
 					"host": [
 						"{{url}}"
 					],
@@ -175,11 +175,11 @@
 					"query": [
 						{
 							"key": "x",
-							"value": "1"
+							"value": "4"
 						},
 						{
 							"key": "y",
-							"value": "3"
+							"value": "4"
 						}
 					]
 				}
@@ -192,18 +192,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/users/1/worlds/152/islands/104",
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/302",
 					"host": [
 						"{{url}}"
 					],
 					"port": "{{port}}",
 					"path": [
 						"users",
-						"1",
-						"worlds",
 						"152",
+						"worlds",
+						"304",
 						"islands",
-						"104"
+						"302"
 					]
 				}
 			},
@@ -239,7 +239,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items/354",
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items/352",
 					"host": [
 						"{{url}}"
 					],
@@ -252,7 +252,32 @@
 						"islands",
 						"202",
 						"items",
-						"354"
+						"352"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/id/worlds/id/islands/id/items/id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/users/152/worlds/304/islands/202/items/606",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users",
+						"152",
+						"worlds",
+						"304",
+						"islands",
+						"202",
+						"items",
+						"606"
 					]
 				}
 			},
