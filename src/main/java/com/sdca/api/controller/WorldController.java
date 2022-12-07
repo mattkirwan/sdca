@@ -28,7 +28,7 @@ public class WorldController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/worlds")
-    public @ResponseBody EntityModel<World> create(
+    public EntityModel<World> create(
             @PathVariable Long userId,
             @RequestParam Integer saveSlot,
             @RequestParam(required = false) Long seed
@@ -58,7 +58,6 @@ public class WorldController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/worlds")
-    @ResponseBody
     public CollectionModel<EntityModel<World>> getAllWorldsByUserId(@PathVariable Long userId) {
         User user = userRepository.findById(userId).orElse(null);
 
@@ -74,7 +73,6 @@ public class WorldController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/worlds/{worldId}")
-    @ResponseBody
     public EntityModel<World> getWorldById(@PathVariable Long userId, @PathVariable Long worldId) {
 
         World world = worldRepository.findById(worldId).orElse(null);

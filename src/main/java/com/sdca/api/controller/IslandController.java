@@ -33,7 +33,7 @@ public class IslandController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public @ResponseBody EntityModel<Island> createIsland(@PathVariable Long userId, @PathVariable Long worldId, @RequestParam Byte x, @RequestParam Byte y) {
+    public EntityModel<Island> createIsland(@PathVariable Long userId, @PathVariable Long worldId, @RequestParam Byte x, @RequestParam Byte y) {
 
         User user = this.userRepository.findById(userId).orElse(null);
 
@@ -66,7 +66,6 @@ public class IslandController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    @ResponseBody
     public CollectionModel<EntityModel<Island>> getIslandsByWorldId(@PathVariable Long userId, @PathVariable Long worldId) {
 
         List<EntityModel<Island>> islands = worldRepository.findById(worldId).get().getIslands().stream()
@@ -82,7 +81,6 @@ public class IslandController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{islandId}")
-    @ResponseBody
     public EntityModel<Island> getIslandById(@PathVariable Long userId, @PathVariable Long worldId, @PathVariable Long islandId) {
 
         Island island = this.islandRepository.findById(islandId).orElse(null);

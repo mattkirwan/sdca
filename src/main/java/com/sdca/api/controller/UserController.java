@@ -34,7 +34,6 @@ public class UserController {
     }
 
     @GetMapping
-    @ResponseBody
     public CollectionModel<EntityModel<User>> findAll() {
 
         List<EntityModel<User>> users = StreamSupport.stream(userRepository.findAll().spliterator(), false)
@@ -48,7 +47,6 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}")
-    @ResponseBody
     public EntityModel<User> getUserById(@PathVariable Long userId) {
         User user = userRepository.findById(userId).orElse(null);
 

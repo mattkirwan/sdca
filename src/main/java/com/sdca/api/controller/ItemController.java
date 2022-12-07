@@ -35,7 +35,7 @@ public class ItemController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public @ResponseBody EntityModel<Item> createItem(
+    public EntityModel<Item> createItem(
             @PathVariable Long userId,
             @PathVariable Long worldId,
             @PathVariable Long islandId,
